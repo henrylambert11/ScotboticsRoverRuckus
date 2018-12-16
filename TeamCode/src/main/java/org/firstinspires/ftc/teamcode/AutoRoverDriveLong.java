@@ -29,8 +29,6 @@ public class AutoRoverDriveLong extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    boolean nitro = false;
-
     static final int Sample = 1;
     static final int Land = 0;
     static final int DRIVE_TO_BOX = 2;
