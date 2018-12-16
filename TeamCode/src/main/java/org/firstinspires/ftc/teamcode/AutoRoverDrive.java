@@ -31,6 +31,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 public class AutoRoverDrive extends LinearOpMode {
 
+    int finalboost = 0;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     static final int Sample = 1;
