@@ -87,6 +87,7 @@ public class AutoSample_Linear extends LinearOpMode {
 
 
 
+
         forward();
         sleep(4000);
 
@@ -161,6 +162,4 @@ public class AutoSample_Linear extends LinearOpMode {
         dDrive.setPower(1);
 
     }
-
-
 }
