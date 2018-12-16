@@ -164,4 +164,3 @@ public class AutoSample_Linear extends LinearOpMode {
     }
 }
 
-//Best AUTO EVER
