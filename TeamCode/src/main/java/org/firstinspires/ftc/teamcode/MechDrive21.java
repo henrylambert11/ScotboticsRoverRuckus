@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="TELEOP", group="TeleOp")
 public class MechDrive21 extends OpMode {
@@ -18,6 +19,7 @@ public class MechDrive21 extends OpMode {
     public DcMotor ArmExtender;
     public DcMotor Spindle;
     public DcMotor Lift;
+    public Servo Cover;
 
     public void init() {
         //list of the all the motors and connect themselves to the actual motors
@@ -30,6 +32,7 @@ public class MechDrive21 extends OpMode {
         ArmExtender = hardwareMap.get(DcMotor.class, "ArmExtender");
         Spindle = hardwareMap.get(DcMotor.class, "Spindle");
         Lift = hardwareMap.get(DcMotor.class, "Lift");
+        Cover = hardwareMap.get(Servo.class, "Cover");
 
         cDrive.setDirection(DcMotor.Direction.REVERSE);
         dDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -67,15 +70,7 @@ public class MechDrive21 extends OpMode {
 
         // Arm Controls
 
-        if(gamepad2.left_bumper) {
-            Arm.setPower(1);
-        }
-        if(gamepad2.right_bumper) {
-            Arm.setPower(-1);
-        }
-        if(!gamepad2.left_bumper && !gamepad2.right_bumper) {
-            Arm.setPower(0);
-        }
+        Arm.setPower(gamepad2.right_stick_y);
 
         // Arm Extender Controls
 
@@ -91,6 +86,18 @@ public class MechDrive21 extends OpMode {
         }
         if(!gamepad1.left_bumper && !gamepad1.right_bumper) {
             Spindle.setPower(0);
+        }
+
+        // Cover Controls
+
+        if(gamepad2.right_bumper) {
+            Cover.setPosition(1);
+        }
+        if(gamepad2.left_bumper) {
+            Cover.setPosition(0);
+        }
+        if(!gamepad2.right_bumper && !gamepad2.left_bumper) {
+            Cover.setPosition(0.5);
         }
 
     }
@@ -120,5 +127,6 @@ public class MechDrive21 extends OpMode {
         Lift
         Extending arm
         Spindle for collection
+        Cover
 
  */
