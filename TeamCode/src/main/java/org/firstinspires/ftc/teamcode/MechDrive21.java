@@ -14,7 +14,10 @@ public class MechDrive21 extends OpMode {
     public DcMotor cDrive;
     public DcMotor bDrive;
     public DcMotor dDrive;
-    public DcMotor Job;
+    public DcMotor Arm;
+    public DcMotor ArmExtender;
+    public DcMotor Spindle;
+    public DcMotor Lift;
 
     public void init() {
         //list of the all the motors and connect themselves to the actual motors
@@ -23,7 +26,10 @@ public class MechDrive21 extends OpMode {
         bDrive = hardwareMap.get(DcMotor.class, "bDrive");
         cDrive = hardwareMap.get(DcMotor.class, "cDrive");
         dDrive = hardwareMap.get(DcMotor.class, "dDrive");
-        Job = hardwareMap.dcMotor.get("Hook");
+        Arm = hardwareMap.get(DcMotor.class, "Arm");
+        ArmExtender = hardwareMap.get(DcMotor.class, "ArmExtender");
+        Spindle = hardwareMap.get(DcMotor.class, "Spindle");
+        Lift = hardwareMap.get(DcMotor.class, "Lift");
 
         cDrive.setDirection(DcMotor.Direction.REVERSE);
         dDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -49,16 +55,43 @@ public class MechDrive21 extends OpMode {
 
         // Lifter controls
 
-        if (gamepad1.a == true) {
-            Job.setPower(1);
+        if (gamepad1.a) {
+            Lift.setPower(1);
         }
-        if (gamepad1.b == true) {
-            Job.setPower(-1);
+        if (gamepad1.y) {
+            Lift.setPower(-1);
         }
-        if (gamepad1.a == false && gamepad1.b == false) {
-            Job.setPower(0);
+        if (!gamepad1.a && !gamepad1.y) {
+            Lift.setPower(0);
         }
 
+        // Arm Controls
+
+        if(gamepad2.left_bumper) {
+            Arm.setPower(1);
+        }
+        if(gamepad2.right_bumper) {
+            Arm.setPower(-1);
+        }
+        if(!gamepad2.left_bumper && !gamepad2.right_bumper) {
+            Arm.setPower(0);
+        }
+
+        // Arm Extender Controls
+
+        ArmExtender.setPower(gamepad2.left_stick_y);
+
+        // Spindle Controls
+
+        if(gamepad1.left_bumper) {
+            Spindle.setPower(1);
+        }
+        if(gamepad1.right_bumper) {
+            Spindle.setPower(-1);
+        }
+        if(!gamepad1.left_bumper && !gamepad1.right_bumper) {
+            Spindle.setPower(0);
+        }
 
     }
 
@@ -70,9 +103,22 @@ public class MechDrive21 extends OpMode {
         cDrive.setPower(0);
         bDrive.setPower(0);
         dDrive.setPower(0);
-        Job.setPower(0);
-
+        Arm.setPower(0);
+        ArmExtender.setPower(0);
+        Lift.setPower(0);
+        Spindle.setPower(0);
 
     }
 
 }
+
+/*
+        Driving priorties list
+
+        Mech Drive
+        Arm
+        Lift
+        Extending arm
+        Spindle for collection
+
+ */
