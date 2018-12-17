@@ -114,6 +114,7 @@ public class MechDrive21 extends OpMode {
         ArmExtender.setPower(0);
         Lift.setPower(0);
         Spindle.setPower(0);
+        Cover.setPosition(0.5);
 
     }
 
