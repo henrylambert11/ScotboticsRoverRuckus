@@ -10,37 +10,58 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.sun.org.apache.bcel.internal.generic.DCMPG;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-@Autonomous(name="AutoSample_Linear", group="Chris")
+@Autonomous(name="AutoSample", group="Autononmous")
 public class AutoSample_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor aDrive = null;
-    private DcMotor bDrive = null;
-    private DcMotor cDrive = null;
-    private DcMotor dDrive = null;
-    private ElapsedTime runtime = new ElapsedTime();
 
-    private GoldAlignDetector detector;
+    // ALL THE MOTORS ON THE DRIVE SYSTEM
+    private DcMotor aDrive = null;              //Front Left
+    private DcMotor bDrive = null;              //Back Left
+    private DcMotor cDrive = null;              //Front right
+    private DcMotor dDrive = null;              //Back right
 
-    double goldPos = 0;
+    //FUNCTIONS MOTORS
+    public DcMotor Arm;                         //Moves the arm up and down
+    public DcMotor ArmExtender;                 //Makes the arm grow in length
+    public DcMotor Spindle;                     //Spins the collection spindle
+    public DcMotor Lift;                        //Gets the robot on and off the lander
 
+    //SERVOS
+    public Servo Cover;                         //Covers the box that the minerals are in
+
+    //VUFORIA STUFF
+    private GoldAlignDetector detector;         //Makes the phone look for the gold
+    double goldPos = 0;                         //The angle the gold is away from the robot
+
+    //TIMERS
+    private ElapsedTime runtime = new ElapsedTime();        //Tells us when the 30 seconds is up
 
     @Override
     public void runOpMode() {
 
-        //Motors
+        //DRIVE Motors
         aDrive = hardwareMap.get(DcMotor.class, "aDrive");
         bDrive = hardwareMap.get(DcMotor.class, "bDrive");
         cDrive = hardwareMap.get(DcMotor.class, "cDrive");
         dDrive = hardwareMap.get(DcMotor.class, "dDrive");
         cDrive.setDirection(DcMotor.Direction.REVERSE);
-
         dDrive.setDirection(DcMotor.Direction.REVERSE);
 
+        //FUNCTIONS Motors
+        Arm = hardwareMap.get(DcMotor.class, "Arm");
+        ArmExtender = hardwareMap.get(DcMotor.class, "ArmExtender");
+        Spindle = hardwareMap.get(DcMotor.class, "Spindle");
+        Lift = hardwareMap.get(DcMotor.class, "Lift");
+
+        //SERVOS
+        Cover = hardwareMap.get(Servo.class, "Cover");
 
         //Vuforia
         telemetry.addData("Status", "DogeCV 2018.0 - Gold Align Example");
@@ -53,16 +74,12 @@ public class AutoSample_Linear extends LinearOpMode {
         detector.alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
         detector.alignPosOffset = 0; // How far from center frame to offset this alignment zone.
         detector.downscale = 0.4; // How much to downscale the input frames
-
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
         //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
         detector.maxAreaScorer.weight = 0.005;
-
         detector.ratioScorer.weight = 5;
         detector.ratioScorer.perfectRatio = 1.0;
-
         detector.enable();
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -84,9 +101,6 @@ public class AutoSample_Linear extends LinearOpMode {
         }else{
             forward();
         }
-
-
-
 
         forward();
         sleep(4000);
