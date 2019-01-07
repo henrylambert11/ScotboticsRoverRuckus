@@ -4,20 +4,14 @@ package org.firstinspires.ftc.teamcode;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.sun.org.apache.bcel.internal.generic.DCMPG;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @Autonomous(name="AutoSample", group="Autononmous")
-public class AutoSample_Linear extends LinearOpMode {
+public class AutoSample_Depot extends LinearOpMode {
 
     /* Declare OpMode members. */
 
@@ -87,9 +81,9 @@ public class AutoSample_Linear extends LinearOpMode {
 
         telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral
 
-        goldPos = detector.getXPosition();
+        goldPos = detector.getXPosition(); // Gets the posistion of the gold block
 
-        sleep(1000);
+        sleep(1000);           // Waits to make sure that we have it correct
 
         // Move Depending on gold position
         if(goldPos < 160){
@@ -102,7 +96,7 @@ public class AutoSample_Linear extends LinearOpMode {
             forward();
         }
 
-        forward();
+        forward();                  // Drives into the depot
         sleep(4000);
 
         detector.disable();

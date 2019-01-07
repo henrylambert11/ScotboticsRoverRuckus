@@ -106,30 +106,31 @@ public class MechDrive21 extends OpMode {
 
         // COVER CONTROLS
 
-        if(gamepad2.right_bumper) {
+        if(gamepad2.right_bumper) {     //Puts cover down
             Cover.setPosition(1);
         }
-        if(gamepad2.left_bumper) {
+        if(gamepad2.left_bumper) {      //Lifts cover up
             Cover.setPosition(0);
         }
-        if(!gamepad2.right_bumper && !gamepad2.left_bumper) {
+        if(!gamepad2.right_bumper && !gamepad2.left_bumper) {       // If nothing is pressed then the cover does not move
             Cover.setPosition(0.5);
         }
 
     }
 
     public void stop() {
-        //nothing here? probably gotta call garbage collection at some point
         //tells everything to cut all power
         //All motors go to 0 power when cut, servos stop moving at 0.5 power (Mochi)
         aDrive.setPower(0);
         cDrive.setPower(0);
         bDrive.setPower(0);
         dDrive.setPower(0);
+
         Arm.setPower(0);
         ArmExtender.setPower(0);
         Lift.setPower(0);
         Spindle.setPower(0);
+
         Cover.setPosition(0.5);
 
     }
