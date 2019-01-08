@@ -31,6 +31,9 @@ public class MechDrive21 extends OpMode {
 
 
     public void init() {
+
+        //PUTS THE NAMES OF THE MOTORS INTO THE CODE
+
         //DRIVE Motors
         aDrive = hardwareMap.get(DcMotor.class, "aDrive");
         bDrive = hardwareMap.get(DcMotor.class, "bDrive");

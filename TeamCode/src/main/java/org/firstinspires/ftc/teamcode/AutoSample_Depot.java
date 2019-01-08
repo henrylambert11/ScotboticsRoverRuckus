@@ -40,6 +40,8 @@ public class AutoSample_Depot extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        //PUTS THE NAMES OF THE MOTORS INTO THE CODE
+
         //DRIVE Motors
         aDrive = hardwareMap.get(DcMotor.class, "aDrive");
         bDrive = hardwareMap.get(DcMotor.class, "bDrive");
