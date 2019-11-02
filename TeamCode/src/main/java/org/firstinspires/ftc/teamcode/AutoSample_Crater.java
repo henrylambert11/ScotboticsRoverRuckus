@@ -172,5 +172,41 @@ public class AutoSample_Crater extends LinearOpMode {
         dDrive.setPower(1);
 
     }
+       public void encoderDrive(double speed, double aInches, double bInches, double cInches, double dInches) {
+        // 4 inch pinion diameter
+        double ad = 720 * (aInches / 12.57);
+        int aDistance = (int) ad;
+        double bd = 720 * (bInches / 12.57);
+        int bDistance = (int) bd;
+        double cd = 720 * (cInches / 12.57);
+        int cDistance = (int) cd;
+        double dd = 720 * (dInches / 12.57);
+        int dDistance = (int) dd;
+
+        aDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        aDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        cDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        dDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        aDrive.setTargetPosition(aDistance);
+        bDrive.setTargetPosition(bDistance);
+        cDrive.setTargetPosition(cDistance);
+        dDrive.setTargetPosition(dDistance);
+        aDrive.setPower(speed);
+        bDrive.setPower(speed);
+        cDrive.setPower(speed);
+        dDrive.setPower(speed);
+
+        while (aDrive.isBusy() && bDrive.isBusy() && cDrive.isBusy() && dDrive.isBusy() && opModeIsActive()) {
+            idle();
+        }
+        aDrive.setPower(0);
+        bDrive.setPower(0);
+        cDrive.setPower(0);
+        dDrive.setPower(0);
+    }
 }
 
